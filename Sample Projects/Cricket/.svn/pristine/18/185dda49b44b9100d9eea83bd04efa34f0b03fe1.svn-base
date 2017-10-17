@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Scoreboard
+{
+    class FileWriter
+    {
+        string sFileName = AppDomain.CurrentDomain.BaseDirectory + "SerializedCustomer.txt";
+        
+        internal void WriteToFile(string sValue)
+        {
+            if (!File.Exists(sFileName))
+                File.Create(sFileName);
+            File.WriteAllText(sFileName, sValue);
+        }
+    }
+}
