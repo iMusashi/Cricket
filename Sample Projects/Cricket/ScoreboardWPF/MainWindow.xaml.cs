@@ -1,19 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Text.RegularExpressions;
-using System.Data;
 
 namespace ScoreboardWPF
 {
@@ -45,10 +31,9 @@ namespace ScoreboardWPF
         {
             objscoreboardbl.DownloadCricketInfo();
         }
-        List<string> lst = new List<string>();
 
 
-        //Is this Pattern Matching?
+        //Is this Pattern Expression/Contravariance?
         void UpdateCricInfo(IRootObject IRO)
         {
             if(IRO is RootObject scoreboardBO)
@@ -79,7 +64,6 @@ namespace ScoreboardWPF
         {
             foreach(var val in scoreboardBO.data)
             {
-                
                 string[] replacestrings = new string[] {"1", "2", "3", "4", "5", "6", "7", "8",
                     "9", "0", "/", "*", "&amp;"};
                 string inputtitle = val.title;
@@ -99,8 +83,18 @@ namespace ScoreboardWPF
 
         private void btnView_Click(object sender, RoutedEventArgs e)
         {
+            //Find unique id of the selected row.
             var unique_id = ((Datum)dgMatches.SelectedItem).unique_id;
-            objscoreboardbl.DownloadCricketInfo(unique_id);
+            //Download information related to selected match id.
+            RootObjectScore rosMatchDetails = objscoreboardbl.DownloadCricketInfo(unique_id);
+
+            var tplMatchDetails = Tuple.Create(rosMatchDetails.description, rosMatchDetails.team1, rosMatchDetails.team2);
+
+            var objMatchDetailsViewModel = new MatchDetailsViewModel();
+            objMatchDetailsViewModel.UpdateDetails(tplMatchDetails);
+
+            dgMatches.Visibility = Visibility.Collapsed;
+            ucMatchDetails.Visibility = Visibility.Visible;
         }
     }
 

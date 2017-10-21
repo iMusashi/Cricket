@@ -43,7 +43,7 @@ namespace ScoreboardWPF
             scoreboardBO(scoreboardData);
         }
 
-        internal void DownloadCricketInfo(string unique_id)
+        internal RootObjectScore DownloadCricketInfo(string unique_id)
         {
             //webclient.Headers.Add("apikey", "QlMIEiiW09N9mCV2uylgtbFYwL13");
             string dlstring = "http://www.cricapi.com/api/cricketScore?unique_id=" + unique_id;
@@ -52,7 +52,8 @@ namespace ScoreboardWPF
             RootObjectScore scoreboardData;
             DeserializeCricData(cricData, out scoreboardData);
 
-            scoreboardBO(scoreboardData);
+            return scoreboardData;
+            //scoreboardBO(scoreboardData);
         }
 
         private void DeserializeCricData(string cricData, out RootObject scoreboardData)
