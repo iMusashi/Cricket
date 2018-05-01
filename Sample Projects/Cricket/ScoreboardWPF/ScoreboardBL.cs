@@ -29,7 +29,7 @@ namespace ScoreboardWPF
         internal ScoreboardBL(Action<IRootObject> ScoreboardBO)
         {
             scoreboardBO = ScoreboardBO;
-            webclient.Headers.Add("apikey", "QlMIEiiW09N9mCV2uylgtbFYwL13");
+            webclient.Headers.Add("apikey", "your api key");
         }
 
         internal void DownloadCricketInfo()
@@ -45,7 +45,7 @@ namespace ScoreboardWPF
 
         internal RootObjectScore DownloadCricketInfo(string unique_id)
         {
-            //webclient.Headers.Add("apikey", "QlMIEiiW09N9mCV2uylgtbFYwL13");
+            //webclient.Headers.Add("apikey", "your api key");
             string dlstring = "http://www.cricapi.com/api/cricketScore?unique_id=" + unique_id;
             string cricData = webclient.DownloadString(dlstring);
 
